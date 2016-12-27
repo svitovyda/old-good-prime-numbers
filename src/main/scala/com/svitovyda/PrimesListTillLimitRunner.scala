@@ -16,7 +16,7 @@ object PrimesListTillLimitRunner {
 
   def main(args: Array[String]): Unit = {
     val lines = 4
-    val till = 200000
+    val till = 300000
 
     val seqTime = standardConfig measure {
       seqResult = PrimesListTillLimit.sequential(till).length
