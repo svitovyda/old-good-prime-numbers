@@ -11,12 +11,12 @@ object PrimeAtNPlaceRunner {
     Key.verbose -> true
   ) withWarmer new Warmer.Default
 
-  @volatile var seqStrResult = 0
-  @volatile var seqRecResult = 0
-  @volatile var parResult = 0
+  @volatile var seqStrResult: Long = 0
+  @volatile var seqRecResult: Long = 0
+  @volatile var parResult: Long = 0
 
   def main(args: Array[String]): Unit = {
-    val place = 20000
+    val place: Long = 20000
 
     val seqRecTime = standardConfig measure {
       seqRecResult = PrimeAtNPlace.sequentialReq(place)

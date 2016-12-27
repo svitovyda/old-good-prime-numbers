@@ -24,4 +24,11 @@ class PrimesListTillLimitSpec extends FlatSpec with Matchers with Inspectors {
     val par = PrimesListTillLimit.parallel(till, 1)
     assert(seq == par)
   }
+
+  it should "both seq and seqIteration should be equal for one line" in {
+    val till = 1000
+    val seq = PrimesListTillLimit.sequential(till)
+    val it = PrimesListTillLimit.sequentialIteration(till)
+    assert(seq == it)
+  }
 }

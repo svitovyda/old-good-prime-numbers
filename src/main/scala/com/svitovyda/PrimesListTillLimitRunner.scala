@@ -12,6 +12,7 @@ object PrimesListTillLimitRunner {
   ) withWarmer new Warmer.Default
 
   @volatile var seqResult = 0
+  @volatile var seqIterResult = 0
   @volatile var parResult = 0
 
   def main(args: Array[String]): Unit = {
@@ -26,6 +27,17 @@ object PrimesListTillLimitRunner {
 
     val parTime = standardConfig measure {
       parResult = PrimesListTillLimit.parallel(till, lines).length
+    }
+
+    if(till < 200000) {
+      val seqIterTime = standardConfig measure {
+        seqIterResult = PrimesListTillLimit.sequentialIteration(till).length
+      }
+      println(s"sequential iteration result = $seqIterResult")
+      println(s"sequential iteration balancing time: $seqIterTime ms")
+
+      println(s"speedup iter: ${seqTime / seqIterTime}")
+      println(s"speedup par over iter: ${seqIterTime / parTime}")
     }
 
     println(s"parallel result = $parResult")
