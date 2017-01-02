@@ -1,35 +1,36 @@
 package com.svitovyda
 
+import com.svitovyda.PrimesListTillLimit.Numbers
 import org.scalatest.{FlatSpec, Inspectors, Matchers}
 
 class SieveSpec extends FlatSpec with Matchers with Inspectors {
 
+  val till = 1000
+  val correct: Numbers = PrimesListTillLimit.parallel(till)
+
   it should "sequentialArray should work correct" in {
-    val till = 1000
-    val seq = PrimesListTillLimit.sequentialFoldLeft(till)
-    val it = Sieve.sequentialArray(till)
-    assert(seq == it)
+    val check = Sieve.sequentialArray(till)
+    assert(check == correct)
   }
 
   it should "sequentialImBitSet should work correct" in {
-    val till = 1000
-    val seq = PrimesListTillLimit.sequentialFoldLeft(till)
-    val it = Sieve.sequentialImBitSet(till)
-    assert(seq == it)
+    val check = Sieve.sequentialImBitSet(till)
+    assert(check == correct)
   }
 
   it should "sequentialMutBitSet should work correct" in {
-    val till = 1000
-    val seq = PrimesListTillLimit.sequentialFoldLeft(till)
-    val it = Sieve.sequentialMutBitSet(till)
-    assert(seq == it)
+    val check = Sieve.sequentialMutBitSet(till)
+    assert(check == correct)
   }
 
   it should "sequentialBitSet should work correct" in {
-    val till = 1000
-    val correct = PrimesListTillLimit.parallel(till)
-    val sequentialBitSet = Sieve.sequentialBitSet(till)
-    assert(correct == sequentialBitSet)
+    val check = Sieve.sequentialBitSet(till)
+    assert(check == correct)
+  }
+
+  it should "seqPrimitive should be correct" in {
+    val seqPrimitive = Sieve.sequentialRecursion(till)
+    assert(seqPrimitive == correct)
   }
 
 }

@@ -7,6 +7,19 @@ import scala.collection.BitSet
 
 object Sieve {
 
+  def sequentialRecursion(till: Int): Numbers = {
+    val max = Math.sqrt(till).toInt
+
+    @tailrec
+    def rec(numbers: Numbers, primes: Numbers): Numbers = {
+      val p = numbers.head
+      if (p > max) primes.reverse ++ numbers
+      else rec(numbers.tail.filter(n => !(p to(n, p)).contains(n)), p :: primes)
+    }
+
+    rec(PrimesListTillLimit.numbersTill(till, 3), List(2))
+  }
+
   def sequentialArray(till: Int): Numbers = {
     val max = Math.sqrt(till).toInt
 
@@ -69,7 +82,7 @@ object Sieve {
       bitset ++= (min / 2 to(len, normalized))
     }
 
-    (0 to (Math.sqrt(till).toInt - 4) / 2).foreach { a =>
+    (0 to (Math.sqrt(till).toInt - 3) / 2).foreach { a =>
       if(!bitset(a)) sieveNext(a)
     }
     2 :: (0 to len).filterNot {bitset}.map { pi => pi + pi + 3 }.toList

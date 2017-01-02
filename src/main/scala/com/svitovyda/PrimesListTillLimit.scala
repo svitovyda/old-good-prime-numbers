@@ -15,22 +15,6 @@ object PrimesListTillLimit {
 
   def numbersTill(end: Int, start: Int = StartFrom): Numbers = (start to(end, 2)).toList
 
-  def sequentialReccursion(till: Int): Numbers = {
-    val max = Math.sqrt(till).toInt
-
-    @tailrec
-    def rec(numbers: Numbers, primes: Numbers): Numbers = {
-      val p = numbers.head
-      if (p > max) primes.reverse ++ numbers
-      else {
-        //val filter = p to(till, p)
-        rec(numbers.tail.filter(n => !(p to(n, p)).contains(n)), p :: primes)
-      }
-    }
-
-    rec(numbersTill(till, 3), List(2))
-  }
-
   @inline
   private def foldByFilter(numbers: Seq[Int], z: PrimesAndFilter, limit: Double): Numbers = {
     val (primes, _) = numbers.foldLeft[PrimesAndFilter](z) { case (z@(primes, filter), i) =>
