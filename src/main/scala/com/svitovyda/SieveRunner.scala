@@ -2,7 +2,7 @@ package com.svitovyda
 
 import org.scalameter._
 
-object PrimesListTillLimitRunner {
+object SieveRunner {
 
   private val standardConfig = config(
     Key.exec.minWarmupRuns -> 10,
@@ -16,11 +16,10 @@ object PrimesListTillLimitRunner {
   @volatile var parResult = 0
 
   def main(args: Array[String]): Unit = {
-    val lines = 7
-    val till = 1000000
+    val till = 10000000
 
     val seqTime = standardConfig measure {
-      seqResult = PrimesListTillLimit.sequentialFoldLeft(till).length
+      seqResult = Sieve.sequentialBitSet(till).length
     }
     println(s"sequential result = $seqResult")
     println(s"sequential balancing time: $seqTime ms")
@@ -33,15 +32,5 @@ object PrimesListTillLimitRunner {
     println(s"parallel balancing time: $parTime ms")
     println(s"speedup: ${seqTime / parTime}")
 
-    if(till < 200000) {
-      val seqIterTime = standardConfig measure {
-        seqIterResult = PrimesListTillLimit.sequentialIteration(till).length
-      }
-      println(s"sequential iteration result = $seqIterResult")
-      println(s"sequential iteration balancing time: $seqIterTime ms")
-
-      println(s"speedup iter: ${seqTime / seqIterTime}")
-      println(s"speedup par over iter: ${seqIterTime / parTime}")
-    }
   }
 }
