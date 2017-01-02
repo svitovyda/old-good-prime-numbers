@@ -63,15 +63,14 @@ object Sieve {
     val bitset = new scala.collection.mutable.BitSet(len + 1)
 
     @inline
-    def cullPrmCmpsts(prmNdx: Int) = {
-      val prm = prmNdx + prmNdx + 3
-      bitset ++= ((prm * prm - 3) / 2 to(len, prm))
+    def sieveNext(next: Int) = {
+      val normalized = next + next + 3 // step
+      val min = normalized * normalized - 3
+      bitset ++= (min / 2 to(len, normalized))
     }
 
     (0 to (Math.sqrt(till).toInt - 4) / 2).foreach { a =>
-      if(!bitset(a)) {
-        cullPrmCmpsts(a)
-      }
+      if(!bitset(a)) sieveNext(a)
     }
     2 :: (0 to len).filterNot {bitset}.map { pi => pi + pi + 3 }.toList
   }
