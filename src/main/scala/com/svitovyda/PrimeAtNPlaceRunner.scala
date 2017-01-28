@@ -31,7 +31,6 @@ object PrimeAtNPlaceRunner {
     println(s"sequential result = $seqStrResult")
     println(s"sequential balancing time: $seqStrTime ms")
 
-
     println(s"speedup: ${seqStrTime / seqRecTime}")
   }
 }

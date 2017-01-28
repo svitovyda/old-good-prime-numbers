@@ -1,18 +1,16 @@
 package com.svitovyda
 
-import com.svitovyda.PrimesListTillLimit.Numbers
-
 import scala.annotation.tailrec
 
 object PrimeAtNPlace {
 
-  val initLength: Int = PrimesListTillLimit.InitialPrimes.length + 2 // as 2 is not included there
-  private val initialPrimes = PrimesListTillLimit.InitialPrimes.reverse
+  val initLength: Int = InitialPrimes.length + 2 // as 2 is not included there
+  private val initialPrimes = InitialPrimes.reverse
 
   def sequentialStream(place: Int): Int = {
     (initLength to place).foldLeft[Numbers](initialPrimes) {
       case (primes, _) =>
-        Stream.from(PrimesListTillLimit.StartFrom.toInt, 2).dropWhile { i =>
+        Stream.from(StartFrom.toInt, 2).dropWhile { i =>
           primes.exists(p => i % p == 0)
         }.head :: primes
     }.head

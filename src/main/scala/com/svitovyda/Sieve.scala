@@ -1,8 +1,6 @@
 package com.svitovyda
 
 import scala.annotation.tailrec
-import com.svitovyda.PrimesListTillLimit.Numbers
-
 import scala.collection.BitSet
 
 object Sieve {
@@ -77,13 +75,14 @@ object Sieve {
 
     @inline
     def sieveNext(next: Int) = {
-      val normalized = next + next + 3 // step
+      val normalized = next + next + 3
+      // step
       val min = normalized * normalized - 3
       bitset ++= (min / 2 to(len, normalized))
     }
 
     (0 to (Math.sqrt(till).toInt - 3) / 2).foreach { a =>
-      if(!bitset(a)) sieveNext(a)
+      if (!bitset(a)) sieveNext(a)
     }
     2 :: (0 to len).filterNot {bitset}.map { pi => pi + pi + 3 }.toList
   }

@@ -1,6 +1,5 @@
 package com.svitovyda
 
-import com.svitovyda.PrimesListTillLimit.Numbers
 import org.scalatest.{FlatSpec, Inspectors, Matchers}
 
 class SieveSpec extends FlatSpec with Matchers with Inspectors {
